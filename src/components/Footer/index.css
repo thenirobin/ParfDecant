@@ -1,0 +1,48 @@
+.footer {
+    width: 100%;
+    background: rgb(208,205,255);
+    background: radial-gradient(circle, rgba(208,205,255,0.3253895308123249) 0%, rgba(224,193,255,0.3197872899159664) 36%, rgba(185,236,247,0.33939513305322133) 100%);
+}
+.container__footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 100px;
+    gap: 100px;
+
+}
+.logo-pic-footer {
+    height: auto;
+    width: 80px;
+}
+.logo-shop-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 10px;
+}
+.nav__footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 12px;
+}
+.info__footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 12px;
+}
+.phone-email {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+}

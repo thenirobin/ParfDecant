@@ -1,0 +1,17 @@
+.header {
+    width: 100%;
+    padding: 12px 0;
+    background: rgb(208,205,255);
+    background: radial-gradient(circle, rgba(208,205,255,0.3253895308123249) 0%, rgba(224,193,255,0.3197872899159664) 36%, rgba(185,236,247,0.33939513305322133) 100%);
+}
+.header__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.shop-name {
+    font-family: Arial, Helvetica, sans-serif;
+    margin-right: 80px;
+    font-weight: bold;
+    text-shadow: 1px 2px 0px rgba(0, 0, 0, 0.5);
+}
