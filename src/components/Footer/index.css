@@ -46,3 +46,9 @@
     align-items: flex-start;
     padding: 0px;
 }
+
+.logo-shop-wrap {
+    display: flex;
+    align-items: center;
+}
+

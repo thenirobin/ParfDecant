@@ -1,26 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './index.css';
 
 import { ReactComponent as Like } from './img/like.svg'
-import { api } from '../../utils/api';
+import { Link } from 'react-router-dom';
+import { UserContext } from '../../context/userContext';
+import { CardContext } from '../../context/cardContext';
 
 
-export const Card = ({ name, price, wight, pictures, likes, discount, userId, product, handleLike, ...args }) => {
-    const isLiked = likes.some(e => e === userId);
+export const Card = ({ name, price, wight, pictures, likes, discount, product, ...args }) => {
+    const user = useContext(UserContext);
+    const {handleLike} = useContext(CardContext);
+
+    const isLiked = likes.some(e => e === user._id);
     const handleClick = () => {
-        // isLiked
-        //     ? api.deleteLike(product._id).then((data) => console.log(data))
-        //     : api.addLike(product._id).then((data) => console.log(data));
-
-        // const response = await api.addLike(product._id);
-        // console.log({response});
-
         handleLike(product, isLiked);
-
-        // const resp = await api.changeProductLike(product._id, isLiked);
-        // console.log({ resp })
     }
-    // console.log(isLiked);
     return (
         <div className='card'>
             <div className='card__sticky card__sticky_type_top-left'>
@@ -36,14 +30,14 @@ export const Card = ({ name, price, wight, pictures, likes, discount, userId, pr
                 </button>
 
             </div>
-            <a href="/" className='card__link'>
+            <Link to={`/perfume/${product._id}`} className='card__link'>
                 <img src={pictures } alt="food" className='card__image' />
                 <div className='card__desc'>
                     <span className='card__price'>{price}p</span>
                     <span className='card__weight'>{wight}</span>
                 </div>
                 <p className='card__name'>{name}</p>
-            </a>
+            </Link>
             <span className='card__card btn btn_type_primary'>В Корзину</span>
         </div>
     )

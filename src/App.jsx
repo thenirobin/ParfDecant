@@ -1,86 +1,121 @@
 import './App.css';
 import { Header } from './components/Header/header';
-import { CardList } from './components/cardList/cardList';
 import { Footer } from './components/Footer/footer';
 import './index.css'
 import { useState, useEffect } from 'react';
-
-import { api, getProductList } from "./utils/api";
+import { api } from "./utils/api";
 import { useDebounce } from "./hooks/hooks";
+import { CatalogPage } from './pages/CatalogPage/CatalogPage';
+import { PerfumePage } from './pages/PerfumePage/PerfumePage';
+import { Route, Routes } from 'react-router-dom';
+import { FavoritePerfumes } from './pages/Favorites/FavoritePerfumes';
+import {UserContext} from './context/userContext'
+import { CardContext } from './context/cardContext';
+import { filteredCards, findFav } from './utils/utils';
+import { CHEAPEST, EXPENSIVE, NEWEST, POPULAR, RATE, SALE } from './constants/constants';
 
 function App() {
   const [cards, setCards] = useState([]);
   const [search, setSearch] = useState(undefined);
   const [user, setUser] = useState({});
+  const [favorites, setFavorites] = useState([]);
+  // const [auth, setAuth] = useState(true);
 
-  const filteredCards = (cards) => {
-    return cards.filter(e => e.author._id === '644660988fbc473fa89cbe9d')
-  }
 
   const debounceValueInApp = useDebounce(search)
 
-
-  const handleProductLike = async (product, isLiked) => {
-    const updatedCard = await api.changeProductLike(product._id, isLiked);
-
-    const newCards = cards.map(e => e._id === updatedCard._id ? updatedCard : e);
+  const handleProductLike = async (product, wasLiked) => {
+    const updatedCard = await api.changeProductLike(product._id, wasLiked);
     const index = cards.findIndex(e => e._id === updatedCard._id);
     if (index !== -1) {
       setCards(state => [...state.slice(0, index), updatedCard, ...state.slice(index + 1)])
     }
-    // setCards([...newCards])
-
-    // const deleteCard = () => {
-    //   const newCards = cards.map(e => e._id === updatedCard._id ? updatedCard : e)
-    //   setCards([...newCards])
-    // }
-    // const addCard = () => {
-
-    //   // const newCards = cards.map(e => {
-    //   //   if (e._id === updatedCard._id) {
-    //   //     return updatedCard
-    //   //   } 
-    //   //   return e
-    //   // })
-    //   const newCards = cards.map(e => e._id === updatedCard._id ? updatedCard : e)
-    //   setCards([...newCards])
-    // }
-    // isLiked ? deleteCard() : addCard()
-
-    // console.log({ updatedCard });
+    wasLiked 
+    ? setFavorites((state) => state.filter(f => f._id !== updatedCard._id))
+    : setFavorites((state) => [updatedCard, ...state])
   }
 
+  const perfumeRating = (reviews) => {
+    if (!reviews || !reviews.length) {
+      return 0;
+    }
+    const sum = reviews.reduce((acc, el)=>acc += el.rating, 0);
+    return sum / reviews.length
+  }
 
+  const onSort = (sortId) => {
+    if (sortId === POPULAR) {
+      const newCards = cards.sort((a,b) => b.likes.length - a.likes.length);
+      setCards([...newCards]);
+      return
+    }
+    if (sortId === NEWEST) {
+      const newCards = cards.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+      setCards([...newCards]);
+      return
+    }
+    if (sortId === CHEAPEST) {
+      const newCards = cards.sort((a,b) => a.price - b.price);
+      setCards([...newCards]);
+      return
+    }
+    if (sortId === EXPENSIVE) {
+      const newCards = cards.sort((a,b) => b.price - a.price);
+      setCards([...newCards]);
+      return
+    }
+    if (sortId === SALE) {
+      const newCards = cards.sort((a,b) => b.discount - a.discount);
+      setCards([...newCards]);
+      return
+    }
+    if (sortId === RATE) {
+      const newCards = cards.sort((a,b) => perfumeRating(b.reviews) - perfumeRating(a.reviews));
+      setCards([...newCards]);
+      return
+    }
+  }
 
   useEffect(() => {
-
     if (debounceValueInApp === undefined) return;
     api.searchProducts(debounceValueInApp)
       .then((data) => setCards(filteredCards(data)))
-
   }, [debounceValueInApp])
 
   useEffect(() => {
-    Promise.all([api.getUserInfo(), getProductList()]).then(([userData, data]) => {
+    Promise.all([api.getUserInfo(), api.getProductList()]).then(([userData, data]) => {
       setUser(userData);
-      setCards(filteredCards(data.products));
+      const filtered = filteredCards(data.products);
+      setCards(filtered);
+      const fav = filtered.filter(e => findFav(e, userData._id))
+      setFavorites(fav)
     });
-
   }, [])
-
-
-
+  const cardValue = {
+    handleLike: handleProductLike,
+    cards: cards,
+    search, 
+    favorites, 
+    onSort
+  }
 
   return (
     <div className="App">
-
-      <Header setSearch={setSearch}>
-      </Header>
-      <main className=" container ">
-        <CardList cards={cards} userId={user._id} handleLike={handleProductLike} />
-      </main>
-      <Footer />
-
+      <CardContext.Provider value={cardValue}>
+      <UserContext.Provider value={user}>
+        <Header setSearch={setSearch} favorites={favorites}>
+        </Header>
+        <main className="container content">
+        <Routes>
+          <Route path='/' element={<CatalogPage/>} />
+          <Route path='/perfume/:id' element={<PerfumePage />} />
+          <Route path='/favorites' element={<FavoritePerfumes />} />
+          <Route path='*' element={<h1> 404 NOT FOUND</h1>} />
+        </Routes>
+        </main>
+        <Footer />
+      </UserContext.Provider>
+      </CardContext.Provider>
     </div>
   );
 }

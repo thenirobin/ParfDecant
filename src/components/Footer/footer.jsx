@@ -8,27 +8,29 @@ export const Footer = () => {
     return <div className='footer'>
         <div className='container__footer'>
                 <div className='logo-shop-name'>
-                    <img src={logoDF} alt='logo'/>
-                    <span className='shop-name'>ParfDecant</span>
-                    <p className='corps'>© «Интернет-магазин ParfDecant»</p>
+                    <div className='logo-shop-wrap'>
+                        <img src={logoDF} alt='logo'/>
+                        <span className='shop-name'>ParfDecant</span>
+                    </div>
+                    <span className='corps'>© «Интернет-магазин ParfDecant»</span>
                 </div>
                 <div className='nav__footer'>
-                    <a href='#'>Каталог</a>
-                    <a href='#'>Новости</a>
-                    <a href='#'>Акции</a>
-                    <a href='#'>Отзывы</a>
+                    <span>Каталог</span>
+                    <span>Новости</span>
+                    <span>Акции</span>
+                    <span>Отзывы</span>
                 </div>
                 <div className='info__footer'>
-                    <a href='#'>Оплата и доставка</a>
-                    <a href='#'>Ответы на вопросы</a>
-                    <a href='#'>Обратная связь</a>
-                    <a href='#'>Контакты</a>
+                    <span>Оплата и доставка</span>
+                    <span>Ответы на вопросы</span>
+                    <span>Обратная связь</span>
+                    <span>Контакты</span>
                 </div>
                 <div className='contacts__footer'>
                     <b>Мы на связи</b>
                     <div className='phone-email'>
                         <p>8 (999) 111 11 11</p>
-                        <p>parfdecant.ru@mail.ru</p>
+                        <span>parfdecant.ru@mail.ru</span>
                     </div> 
                 </div>
         </div>

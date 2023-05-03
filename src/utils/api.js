@@ -8,7 +8,7 @@ class Api {
     this.headers = data.headers;
   }
   getProductList() {
-    return fetch(`${this.baseUrl}/products`, {
+    return fetch(`${this.baseUrl}/products/`, {
         method: "GET",
         headers: this.headers,
     }).then(onResponse);
@@ -40,6 +40,11 @@ class Api {
     return fetch(`${this.baseUrl}/products/likes/${productId}`, {
       headers: this.headers,
       method:  isLiked ? "DELETE" : 'PUT'
+    }).then(onResponse)
+  }
+  getProductById(productId) {
+    return fetch(`${this.baseUrl}/products/${productId}`, {
+      headers: this.headers,
     }).then(onResponse)
   }
 }
