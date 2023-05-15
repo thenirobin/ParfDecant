@@ -16,7 +16,7 @@ export const Header = (props) => {
         props.setSearch(path);
     }
     const location = useLocation();
-    const {favorites} = useContext(CardContext);
+    const {favorites, setModalActive} = useContext(CardContext);
 
     return <div className="header">
         <div className='container'>
@@ -34,7 +34,9 @@ export const Header = (props) => {
                         {!!favorites.length && <span className='header__bubble'>{favorites.length}</span>}
                     </Link>
                     <Basket />
-                    <Profile />
+                    <Link to={'/login'} onClick={() => setModalActive(true)}>
+                    <Profile/>
+                    </Link>
                 </div>
             </div>
         </div>

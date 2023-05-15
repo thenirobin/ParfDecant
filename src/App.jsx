@@ -13,12 +13,17 @@ import {UserContext} from './context/userContext'
 import { CardContext } from './context/cardContext';
 import { filteredCards, findFav } from './utils/utils';
 import { CHEAPEST, EXPENSIVE, NEWEST, POPULAR, RATE, SALE } from './constants/constants';
+// import { Form } from './components/Form/form';
+import { RegistrateForm } from './components/Form/registrateForm';
+import { Modal } from './components/Modal/modal';
+import { LoginForm } from './components/Auth/Login/login';
 
 function App() {
   const [cards, setCards] = useState([]);
   const [search, setSearch] = useState(undefined);
   const [user, setUser] = useState({});
   const [favorites, setFavorites] = useState([]);
+  const [modalActive, setModalActive] = useState(false);
   // const [auth, setAuth] = useState(true);
 
 
@@ -45,31 +50,24 @@ function App() {
 
 
   const onSort = (sortId) => {
-    let newCards;
     switch (sortId) {
       case POPULAR:
-        newCards = cards.sort((a,b) => b.likes.length - a.likes.length);
-        setCards([...newCards]);
+        setCards((state) => [...state.sort((a,b) => b.likes.length - a.likes.length)]);
         return
       case NEWEST: 
-        newCards = cards.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
-        setCards([...newCards]);
+      setCards((state)=>[...state.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))]);
         return
       case CHEAPEST:
-        newCards = cards.sort((a,b) => a.price - b.price);
-        setCards([...newCards]);
+        setCards((state) => [...state.sort((a,b) => a.price - b.price)]);
         return
       case EXPENSIVE:
-        newCards = cards.sort((a,b) => b.price - a.price);
-        setCards([...newCards]);
+        setCards((state) => [...state.sort((a,b) => b.price - a.price)]);
         return
       case SALE:
-        newCards = cards.sort((a,b) => b.discount - a.discount);
-        setCards([...newCards]);
+        setCards((state) => [...state.sort((a,b) => b.discount - a.discount)]);
         return
       case RATE:
-        newCards = cards.sort((a,b) => perfumeRating(b.reviews) - perfumeRating(a.reviews));
-        setCards([...newCards]);
+        setCards((state) => [...state.sort((a,b) => perfumeRating(b.reviews) - perfumeRating(a.reviews))]);
         return
       default: break;
     }
@@ -90,25 +88,38 @@ function App() {
       setFavorites(fav)
     });
   }, [])
+
   const cardValue = {
     handleLike: handleProductLike,
     cards: cards,
     search, 
     favorites, 
-    onSort
+    onSort,
+    setModalActive,
+    perfumeRating
   }
 
   return (
     <div className="App">
       <CardContext.Provider value={cardValue}>
       <UserContext.Provider value={user}>
-        <Header setSearch={setSearch} favorites={favorites}>
-        </Header>
+        <Header setSearch={setSearch} favorites={favorites}></Header>
+        {/* <Form/> */}
         <main className="container content">
         <Routes>
           <Route path='/' element={<CatalogPage/>} />
           <Route path='/perfume/:id' element={<PerfumePage />} />
           <Route path='/favorites' element={<FavoritePerfumes />} />
+          <Route path='/registrate' element={
+            <Modal modalActive={modalActive} setModalActive={setModalActive}>
+            <RegistrateForm />
+          </Modal>
+          } />
+          <Route path='/login' element={
+            <Modal modalActive={modalActive} setModalActive={setModalActive}>
+            <LoginForm />
+          </Modal>
+          } />
           <Route path='*' element={<h1> 404 NOT FOUND</h1>} />
         </Routes>
         </main>

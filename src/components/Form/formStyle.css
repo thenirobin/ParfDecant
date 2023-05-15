@@ -1,0 +1,32 @@
+/* .incontent {
+    display: flex;
+    justify-content: center;
+    padding: 20px 1rem;
+} */
+
+.form__style {
+    display: grid;
+    max-width: 200px;
+    gap: 10px;
+}
+.form__input {
+    border-radius: 1.5rem;
+    background-color: white;
+    max-width: 200px;
+    font-size: 14px;
+    line-height: 18px;
+    color: black;
+    padding: 12px 18px;
+    border: 1px solid gray;
+    outline: none;
+}
+
+.form__pass {
+    position: relative;
+}
+.form__pass__icon {
+    position: absolute;
+    right: 20px;
+    top: 6px;
+    cursor: pointer;
+}
