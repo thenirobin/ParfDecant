@@ -38,6 +38,8 @@ function App() {
     wasLiked 
     ? setFavorites((state) => state.filter(f => f._id !== updatedCard._id))
     : setFavorites((state) => [updatedCard, ...state])
+
+    return wasLiked;
   }
 
   const perfumeRating = (reviews) => {
@@ -96,7 +98,8 @@ function App() {
     favorites, 
     onSort,
     setModalActive,
-    perfumeRating
+    perfumeRating,
+    user
   }
 
   return (

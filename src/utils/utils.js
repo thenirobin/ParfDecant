@@ -1,10 +1,24 @@
 export const filteredCards = (cards) => {
-    return cards.filter(e => e.author._id === '644660988fbc473fa89cbe9d')
+    return cards.filter(e => e.author._id )
 }
-
+// === '644660988fbc473fa89cbe9d'
 export const findFav = (product, id) => {
     return product.likes.some(e => e === id)
 }
+
+export const getEnding = (numb, field = 'товар') => {
+    const tmp = numb % 10;
+    if ((numb > 10 && numb < 15) || (tmp > 5) || (!numb) || (tmp === 0)) {
+        return `${field}ов`
+    }
+    if (tmp === 1) {
+        return `${field}`
+    }
+    if (tmp > 1 && tmp < 5) {
+        return `${field}а`
+    }
+}
+
   // Сортировка с условиями
   // const onSort = (sortId) => {
   //   if (sortId === POPULAR) {
