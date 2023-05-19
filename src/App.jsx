@@ -31,10 +31,7 @@ function App() {
 
   const handleProductLike = async (product, wasLiked) => {
     const updatedCard = await api.changeProductLike(product._id, wasLiked);
-    const index = cards.findIndex(e => e._id === updatedCard._id);
-    if (index !== -1) {
-      setCards(state => [...state.slice(0, index), updatedCard, ...state.slice(index + 1)])
-    }
+    setCards(s => [...s.map(e => e._id === updatedCard?._id ? updatedCard : e)]);
     wasLiked 
     ? setFavorites((state) => state.filter(f => f._id !== updatedCard._id))
     : setFavorites((state) => [updatedCard, ...state])

@@ -21,12 +21,12 @@ export const Header = (props) => {
     return <div className="header">
         <div className='container'>
             <div className='header__wrapper'>
-                <div className='logo-wrap'>
-                    <Link to={'/'} >
+                <Link to={'/'} className='header__link'>
+                    <div className='logo-wrap'>
                         <LogoSvg className='logo' />
-                    </Link>
-                <span className='shop-name'>ParfDecant</span>
-                </div>
+                    <span className='shop-name'>ParfDecant</span>
+                    </div>
+                </Link>
                 {location.pathname === '/' && <Search setSearch={setSearchQuery} />}
                 <div className='header__icons'>
                     <Link className='header__fav' to={'/favorites'}>
