@@ -1,33 +1,24 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { api } from "../../../utils/api";
+import '../index.css'
+import { emailRegister } from "../Registrate/register";
 
-
-
-export const LoginForm = ({ isRequired = true }) => {
+export const LoginForm = () => {
     
     const [type, setType] = useState(true);
 
     const { register, handleSubmit, formState: { errors } } = useForm({mode: "onBlur"});
 
-    const sendData = (data) => {
-        const newData = data.tags.split(' ');
-        const sendedData = {...data, tags: data.tags.split(' ')}
-        ({ data })
+    const sendData = async (data) => {
+        try {
+            const res = await api.signIn(data);
+        localStorage.setItem('token', res.token)
+        } catch (error) {
+            alert('Ooooops')
+        }
     }
-
-
-    const emailRegister = { required: 'Почта обязательна!' }
-            const passwordRegister = {
-                required: {
-                    value: isRequired,
-                    message: 'pass is required!'
-                },
-                pattern: {
-                    value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-                    message: 'Пароль должен содержать минимум 8 символов, одну большую букву латинского алфавита и одну цифру'
-                }
-            }
 
     return (
     <div>
@@ -38,15 +29,16 @@ export const LoginForm = ({ isRequired = true }) => {
                 {errors?.email && <span> {errors?.email.message}</span>}
             </div>
             <div className="form__pass">
-                <input className="form__input" type={!type ? 'password' : 'text'} {...register("password", { ...passwordRegister })} placeholder="password" />
+                <input className="form__input" type={!type ? 'password' : 'text'} {...register("password")} placeholder="password" />
                 <span onClick={() => setType(!type)} className={`form__pass__icon`}>{type ? '0' : 'X'}</span>
                 {errors?.password && <span> {errors?.password.message}</span>}
             </div>
-            <div>
-                <Link  to={'/registrate'}>Регистрация</Link>
+            <div className="auth__links">
+                <Link className="auth__link" to={'/registrate'}>Регистрация</Link>
+                <Link className="auth__link" to={'/reset-password'}>Забыли пароль?</Link>
             </div>
                 {/* <label htmlFor="tags">Введите теги через запятую / слеш / пробел</label> */}
-                <button type="submit"> submit</button>
+                <button className="button__auth" type="submit">Войти</button>
         </form>
     </div>
     )

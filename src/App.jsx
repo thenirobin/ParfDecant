@@ -17,6 +17,8 @@ import { CHEAPEST, EXPENSIVE, NEWEST, POPULAR, RATE, SALE } from './constants/co
 import { RegistrateForm } from './components/Form/registrateForm';
 import { Modal } from './components/Modal/modal';
 import { LoginForm } from './components/Auth/Login/login';
+import { RegisterForm, RegistrationForm } from './components/Auth/Registrate/register';
+import { ResetPassword } from './components/Auth/ResetPassword/resetPassword';
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -112,12 +114,17 @@ function App() {
           <Route path='/favorites' element={<FavoritePerfumes />} />
           <Route path='/registrate' element={
             <Modal modalActive={modalActive} setModalActive={setModalActive}>
-            <RegistrateForm />
+            <RegisterForm />
           </Modal>
           } />
           <Route path='/login' element={
             <Modal modalActive={modalActive} setModalActive={setModalActive}>
             <LoginForm />
+          </Modal>
+          } />
+          <Route path='/reset-password' element={
+            <Modal modalActive={modalActive} setModalActive={setModalActive}>
+            <ResetPassword />
           </Modal>
           } />
           <Route path='*' element={<h1> 404 NOT FOUND</h1>} />

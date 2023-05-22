@@ -60,6 +60,34 @@ class Api {
       method: "DELETE"
     }).then(onResponse)
   }
+  signIn(data) {
+    return fetch(`${this.baseUrl}/signin`, {
+      headers: this.headers,
+      method: "POST",
+      body: JSON.stringify(data)
+    }).then(onResponse)
+  }
+  signUp(data) {
+    return fetch(`${this.baseUrl}/signup`, {
+      headers: this.headers,
+      method: "POST",
+      body: JSON.stringify(data)
+    }).then(onResponse)
+  }
+  resetPassword(data) {
+    return fetch(`${this.baseUrl}/forgot-password`, {
+      headers: this.headers,
+      method: "POST",
+      body: JSON.stringify(data)
+    }).then(onResponse)
+  }
+  resetPasswordWithToken(data, token) {
+    return fetch(`${this.baseUrl}/reset-password/${token}`, {
+      headers: this.headers,
+      method: "PATCH",
+      body: JSON.stringify(data)
+    }).then(onResponse)
+  }
 }
 
 const config = {

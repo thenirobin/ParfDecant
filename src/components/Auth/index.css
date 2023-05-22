@@ -1,7 +1,7 @@
 .form__style {
     display: grid;
     max-width: 200px;
-    gap: 10px;
+    gap: 20px;
 }
 .form__input {
     border-radius: 1.5rem;
@@ -23,4 +23,27 @@
     right: 20px;
     top: 6px;
     cursor: pointer;
+}
+.auth__links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.auth__link {
+    text-decoration: none;
+    color: rgb(105, 105, 105);
+}
+.auth__link:hover {
+    opacity: 0.6;
+}
+.button__auth {
+    border-radius: 15px;
+    cursor: pointer;
+    color: black;
+    background-color: rgb(255, 221, 250);
+    border: none;
+    height: 30px;
+}
+.button__auth:hover {
+    opacity: 0.6;
 }

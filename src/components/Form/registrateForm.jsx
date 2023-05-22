@@ -23,14 +23,14 @@ export const RegistrateForm = ({ isRequired = true }) => {
                     value: isRequired,
                     message: 'Имя тоже обязательно!'
                 },
-                maxLength: { value: 4, message: '4 is max' },
+                maxLength: { value: 7, message: '7 is max' },
                 minLength: { value: 2, message: '2 is min' },
             }
             const emailRegister = { required: 'Имя тоже обязательно!' }
             const passwordRegister = {
                 required: {
                     value: isRequired,
-                    message: 'pass is required!'
+                    message: 'Пароль обязателен!'
                 },
                 pattern: {
                     value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
