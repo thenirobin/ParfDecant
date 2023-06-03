@@ -37,6 +37,9 @@ export const Header = (props) => {
                     <Link to={'/login'} onClick={() => setModalActive(true)}>
                     <Profile/>
                     </Link>
+                    <Link to={'/profile'} >
+                    Profile
+                    </Link>
                 </div>
             </div>
         </div>

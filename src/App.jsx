@@ -19,6 +19,9 @@ import { Modal } from './components/Modal/modal';
 import { LoginForm } from './components/Auth/Login/login';
 import { RegisterForm, RegistrationForm } from './components/Auth/Registrate/register';
 import { ResetPassword } from './components/Auth/ResetPassword/resetPassword';
+import { useDispatch } from 'react-redux';
+import { setList } from './storage/slices/productsSlice';
+import { ProfilePage } from './pages/ProfilePage/Profile';
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -28,6 +31,7 @@ function App() {
   const [modalActive, setModalActive] = useState(false);
   // const [auth, setAuth] = useState(true);
 
+  const dispatch = useDispatch();
 
   const debounceValueInApp = useDebounce(search)
 
@@ -84,11 +88,12 @@ function App() {
     Promise.all([api.getUserInfo(), api.getProductList()]).then(([userData, data]) => {
       setUser(userData);
       const filtered = filteredCards(data.products);
+      dispatch(setList(filtered));
       setCards(filtered);
       const fav = filtered.filter(e => findFav(e, userData._id))
       setFavorites(fav)
     });
-  }, [])
+  }, [dispatch])
 
   const cardValue = {
     handleLike: handleProductLike,
@@ -112,6 +117,7 @@ function App() {
           <Route path='/' element={<CatalogPage/>} />
           <Route path='/perfume/:id' element={<PerfumePage />} />
           <Route path='/favorites' element={<FavoritePerfumes />} />
+          <Route path='/profile' element={<ProfilePage />} />
           <Route path='/registrate' element={
             <Modal modalActive={modalActive} setModalActive={setModalActive}>
             <RegisterForm />

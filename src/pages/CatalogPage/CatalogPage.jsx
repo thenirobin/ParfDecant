@@ -4,6 +4,7 @@ import './index.css';
 import { CardContext } from "../../context/cardContext";
 import { CHEAPEST, EXPENSIVE, NEWEST, POPULAR, RATE, SALE } from "../../constants/constants";
 import { getEnding } from "../../utils/utils";
+import { useSelector } from "react-redux";
 
 
 export const CatalogPage = () => {
@@ -15,6 +16,8 @@ export const CatalogPage = () => {
         }
     }
     const {cards, search, onSort} = useContext(CardContext);
+
+    const {products} = useSelector(s => s);
 
     const sortedCards = [{id: POPULAR}, {id: SALE}, {id: RATE}, {id: NEWEST}, {id: CHEAPEST}, {id: EXPENSIVE}]
     return ( 
