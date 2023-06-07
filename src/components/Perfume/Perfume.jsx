@@ -2,18 +2,22 @@ import React, { useContext, useEffect, useState } from "react";
 import s from './index.module.css';
 import { BackNavigate } from "../BackNavigate/BackNavigate";
 import { CardContext } from "../../context/cardContext";
-import { getEnding } from "../../utils/utils";
+import { getEnding, perfumeRating } from "../../utils/utils";
 import truck from './img/Truck.svg'
 import { ReactComponent as Heart} from '../Card/img/like.svg';
 import cn from 'classnames';
 import { Rating } from "../Rating/rating";
 import { Reviews } from "../Reviews/reviews";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchChangePerfumeFav } from "../../storage/slices/perfumesSlice";
 
 
 export const Perfume = ({perfume, onPerfumeLike, sendReview, onDeleteReview}) => {
 
-    const { user, perfumeRating} = useContext(CardContext);
+    const {data: user} = useSelector(s => s.user);
     const [isLikedProduct, setIsProductLike] = useState(false);
+
+    const dispatch = useDispatch();
 
     const getDiscountPrice = (discount, price) => {
         return Math.floor(price * (1 - discount/100)).toFixed(0)
@@ -26,7 +30,6 @@ export const Perfume = ({perfume, onPerfumeLike, sendReview, onDeleteReview}) =>
 
     const handleClick = () => {
         onPerfumeLike(perfume, isLikedProduct);
-        // setIsProductLike(!isLikedProduct)
     }
 
 

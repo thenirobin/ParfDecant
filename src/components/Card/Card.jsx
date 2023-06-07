@@ -1,19 +1,20 @@
 import React, { useContext } from 'react';
 import './index.css';
-
 import { ReactComponent as Like } from './img/like.svg'
 import { Link } from 'react-router-dom';
-import { UserContext } from '../../context/userContext';
-import { CardContext } from '../../context/cardContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchChangePerfumeFav } from '../../storage/slices/perfumesSlice';
 
 
 export const Card = ({ name, price, wight, pictures, likes, discount, product, ...args }) => {
-    const user = useContext(UserContext);
-    const {handleLike} = useContext(CardContext);
+
+    const {data: user} = useSelector(s => s.user);
+
+    const dispatch = useDispatch();
 
     const isLiked = likes.some(e => e === user._id);
     const handleClick = () => {
-        handleLike(product, isLiked);
+        dispatch(fetchChangePerfumeFav({product, wasLiked: isLiked}))
     }
     return (
         <div className='card'>

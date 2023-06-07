@@ -7,7 +7,7 @@ class Api {
     this.baseUrl = data.baseUrl;
     this.headers = data.headers;
   }
-  getProductList() {
+  getPerfumesList() {
     return fetch(`${this.baseUrl}/products/`, {
         method: "GET",
         headers: this.headers,
@@ -19,7 +19,21 @@ class Api {
         headers: this.headers
     }).then(onResponse)
   }
-  searchProducts(path) {
+  updateUserInfo(data) {
+    return fetch(`${this.baseUrl}/users/me`, {
+        headers: this.headers,
+        method: 'PATCH',
+        body: JSON.stringify(data)
+    }).then(onResponse)
+  }
+  updateUserAvatar(data) {
+    return fetch(`${this.baseUrl}/users/me/avatar`, {
+        headers: this.headers,
+        method: 'PATCH',
+        body: JSON.stringify(data)
+    }).then(onResponse)
+  }
+  searchPerfumes(path) {
     return fetch(`${this.baseUrl}/products/search?query=${path}`, {
         headers: this.headers
     }).then((e)=>onResponse(e))
@@ -36,25 +50,25 @@ class Api {
       method: "DELETE"
     }).then(onResponse)
   }
-  changeProductLike(productId, isLiked) {
+  changePerfumeLike(productId, isLiked) {
     return fetch(`${this.baseUrl}/products/likes/${productId}`, {
       headers: this.headers,
       method:  isLiked ? "DELETE" : 'PUT'
     }).then(onResponse)
   }
-  getProductById(productId) {
+  getPerfumeById(productId) {
     return fetch(`${this.baseUrl}/products/${productId}`, {
       headers: this.headers,
     }).then(onResponse)
   }
-  addProductReview(productId, data) {
+  addPerfumeReview(productId, data) {
     return fetch(`${this.baseUrl}/products/review/${productId}`, {
       headers: this.headers,
       method: "POST",
       body: JSON.stringify(data)
     }).then(onResponse)
   }
-  deleteProductReview(productId, reviewId) {
+  deletePerfumeReview(productId, reviewId) {
     return fetch(`${this.baseUrl}/products/review/${productId}/${reviewId}`, {
       headers: this.headers,
       method: "DELETE"
@@ -88,6 +102,7 @@ class Api {
       body: JSON.stringify(data)
     }).then(onResponse)
   }
+  
 }
 
 const config = {
@@ -100,7 +115,7 @@ const config = {
 
 export const api = new Api(config);
 
-export const getProductList = () => {
+export const getPerfumeList = () => {
   return fetch(`${config.baseUrl}/products`, {
       method: "GET",
       headers: config.headers,

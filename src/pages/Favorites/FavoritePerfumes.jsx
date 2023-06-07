@@ -3,9 +3,10 @@ import './index.css'
 import { BackNavigate } from "../../components/BackNavigate/BackNavigate";
 import { CardList } from "../../components/cardList/cardList";
 import { CardContext } from "../../context/cardContext";
+import { useSelector } from "react-redux";
 
 export const FavoritePerfumes = () => {
-    const {favorites} = useContext(CardContext);
+    const {favorites} = useSelector(s => s.perfumes);
     return ( 
         <div className="favorites">
             <BackNavigate />

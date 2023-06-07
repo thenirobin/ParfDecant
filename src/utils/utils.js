@@ -1,6 +1,7 @@
 export const filteredCards = (cards) => {
     return cards.filter(e => e.author._id  === '644660988fbc473fa89cbe9d')
 }
+
 export const findFav = (product, id) => {
     return product.likes.some(e => e === id)
 }
@@ -16,6 +17,14 @@ export const getEnding = (numb, field = 'товар') => {
     if (tmp > 1 && tmp < 5) {
         return `${field}а`
     }
+}
+
+export const perfumeRating = (reviews) => {
+    if (!reviews || !reviews.length) {
+        return 0;
+    }
+    const sum = reviews.reduce((acc, el)=>acc += el.rating, 0);
+    return sum / reviews.length
 }
 
   // Сортировка с условиями

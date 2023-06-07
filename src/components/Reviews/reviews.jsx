@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import s from './index.module.css'
 import { ReactComponent as Trash} from '../Perfume/img/trash.svg'
 import { CardContext } from "../../context/cardContext";
+import { useSelector } from "react-redux";
 
 const dateOptions = {
     day: 'numeric',
@@ -11,7 +12,7 @@ const dateOptions = {
     year: 'numeric'
 }
 export const Reviews = ({ onSendReview, reviews, onDeleteReview }) => {
-    const { user, perfumeRating} = useContext(CardContext);
+    const {data: userData} = useSelector(s => s.user);
     const [showForm, setShowForm] = useState(false);
     const { register, handleSubmit, formState: { errors }, reset } = useForm({mode: "onBlur"});
     const [rate, setRate] = useState(3);
@@ -39,7 +40,7 @@ export const Reviews = ({ onSendReview, reviews, onDeleteReview }) => {
             <form className={s.reviews__form} onSubmit={handleSubmit(onSendFormReview)}>
                 <Rating rating={rate} setRate={setRate} isEditable={true}/>
                 <textarea {...register("text", { ...reviewRegister })} type='text' placeholder='Напишите свой отзыв'  className='form__review'/>
-                <button type='submit' className={s.button__cart}>Send</button>
+                <button type='submit' className={s.button__review}>Send</button>
             </form>}
             <div className={s.reviews__list}>
                 <div className={s.reviews__hr} />
@@ -47,7 +48,7 @@ export const Reviews = ({ onSendReview, reviews, onDeleteReview }) => {
                     <div className={s.reviews__author}>
                         <span>{e.author.name}</span>
                         <span className={s.reviews__date}>{new Date(e.created_at).toLocaleString('ru-RU', dateOptions)}</span>
-                        {user?._id === e.author._id &&
+                        {userData?._id === e.author._id &&
                         <Trash onClick={() => onDeleteReview(e._id)} className={s.reviews__trash}/>
                         }
                         </div>

@@ -1,0 +1,18 @@
+.profile__avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.profile__button {
+    border-radius: 15px;
+    cursor: pointer;
+    color: black;
+    background-color: rgb(255, 221, 250);
+    border: none;
+    height: 30px;
+}
+
+.profile__button:hover {
+    opacity: 0.6;
+}
