@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import './index.css'
 import { BackNavigate } from "../../components/BackNavigate/BackNavigate";
-import { CardList } from "../../components/cardList/cardList";
-import { CardContext } from "../../context/cardContext";
+import { CardList } from "../../components/CardList/cardList";
 import { useSelector } from "react-redux";
 
 export const FavoritePerfumes = () => {

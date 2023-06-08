@@ -1,5 +1,5 @@
 
-import React, { useContext } from 'react'
+import React from 'react'
 import './index.css';
 import { ReactComponent as LogoSvg } from '../Logo/logo.svg';
 // import  styles from './style.module.css'
@@ -8,17 +8,13 @@ import { Link, useLocation } from 'react-router-dom';
 import { ReactComponent as Basket} from './img/basket.svg'
 import { ReactComponent as Profile} from './img/profile.svg'
 import { ReactComponent as Heart} from './img/favorites.svg'
-import { CardContext } from '../../context/cardContext';
 import { useSelector } from 'react-redux';
 
 
-export const Header = ({setSearch}) => {
+export const Header = ({setModalActive, auth}) => {
 
     const location = useLocation();
-
     const {favorites} = useSelector(s => s.perfumes)
-
-    const {setModalActive} = useContext(CardContext);
 
     return <div className="header">
         <div className='container'>
@@ -29,19 +25,21 @@ export const Header = ({setSearch}) => {
                     <span className='shop-name'>ParfDecant</span>
                     </div>
                 </Link>
-                {location.pathname === '/' && <Search setSearch={setSearch} />}
+                {location.pathname === '/' && <Search />}
                 <div className='header__icons'>
                     <Link className='header__fav' to={'/favorites'}>
                         <Heart />
                         {!!favorites.length && <span className='header__bubble'>{favorites.length}</span>}
                     </Link>
                     <Basket />
-                    <Link to={'/login'} onClick={() => setModalActive(true)}>
-                    <Profile/>
-                    </Link>
+                    { auth ? 
                     <Link to={'/profile'} >
                     Profile
                     </Link>
+                    :<Link to={'/login'} onClick={() => setModalActive(true)}>
+                    <Profile/>
+                    </Link>
+                    }
                 </div>
             </div>
         </div>

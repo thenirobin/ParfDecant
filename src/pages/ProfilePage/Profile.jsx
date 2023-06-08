@@ -1,12 +1,14 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, updateUser } from "../../storage/slices/userSlice";
 import './style.css'
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
-export const ProfilePage = () => {
+export const ProfilePage = ({setModalActive}) => {
     const dispatch = useDispatch();
-    const {data: user} = useSelector(s => s.user)
+    const navigate = useNavigate();
+    const {data: user} = useSelector(s => s.user);
     
     useEffect(()=>{
         dispatch(getUser());
@@ -18,6 +20,13 @@ export const ProfilePage = () => {
         dispatch(updateUser(data));
         reset();
     }
+
+    const logout = () => {
+        localStorage.removeItem('token');
+        setModalActive(true);
+        navigate('/login');
+    }
+
     return ( 
         <> 
         {!user?._id ? 'not auth' : <div className="profile">
@@ -39,6 +48,7 @@ export const ProfilePage = () => {
                         <input className="form__input" type="text" {...register("avatar")} placeholder="Ссылка для нового аватара"/>
                     </div>
                     <button className="profile__button" type="submit">Отправить</button>
+                    <button className="profile__button" onClick={logout}>Выйти</button>
                 </form>
             </div>
             <div>

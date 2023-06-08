@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Rating } from "../Rating/rating";
 import { useForm } from "react-hook-form";
 import s from './index.module.css'
 import { ReactComponent as Trash} from '../Perfume/img/trash.svg'
-import { CardContext } from "../../context/cardContext";
 import { useSelector } from "react-redux";
 
 const dateOptions = {
@@ -14,7 +13,7 @@ const dateOptions = {
 export const Reviews = ({ onSendReview, reviews, onDeleteReview }) => {
     const {data: userData} = useSelector(s => s.user);
     const [showForm, setShowForm] = useState(false);
-    const { register, handleSubmit, formState: { errors }, reset } = useForm({mode: "onBlur"});
+    const { register, handleSubmit, reset } = useForm({mode: "onBlur"});
     const [rate, setRate] = useState(3);
 
     const reviewRegister = {

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './index.css';
 import { ReactComponent as Like } from './img/like.svg'
 import { Link } from 'react-router-dom';

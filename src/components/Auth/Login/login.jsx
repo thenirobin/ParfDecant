@@ -1,24 +1,28 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../../utils/api";
 import '../index.css'
 import { emailRegister } from "../Registrate/register";
+import { openNotification } from "../../Notification/notification";
 
 export const LoginForm = () => {
     
     const [type, setType] = useState(true);
+    const navigate = useNavigate();
 
     const { register, handleSubmit, formState: { errors } } = useForm({mode: "onBlur"});
 
     const sendData = async (data) => {
         try {
             const res = await api.signIn(data);
-        localStorage.setItem('token', res.token)
+            localStorage.setItem('token', res.token);
+            navigate('/');
+            openNotification('success', 'Успешно!', 'Вы успешно вошли в свой аккаунт.');
         } catch (error) {
-            alert('Ooooops')
+            openNotification('error', 'Ошибка!', 'Неправильный логин или пароль.');
         }
-    }
+    };
 
     return (
     <div>

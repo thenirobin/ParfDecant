@@ -1,23 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import s from './index.module.css';
 import { BackNavigate } from "../BackNavigate/BackNavigate";
-import { CardContext } from "../../context/cardContext";
 import { getEnding, perfumeRating } from "../../utils/utils";
 import truck from './img/Truck.svg'
 import { ReactComponent as Heart} from '../Card/img/like.svg';
 import cn from 'classnames';
 import { Rating } from "../Rating/rating";
 import { Reviews } from "../Reviews/reviews";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchChangePerfumeFav } from "../../storage/slices/perfumesSlice";
+import { useSelector } from "react-redux";
 
 
 export const Perfume = ({perfume, onPerfumeLike, sendReview, onDeleteReview}) => {
 
     const {data: user} = useSelector(s => s.user);
     const [isLikedProduct, setIsProductLike] = useState(false);
-
-    const dispatch = useDispatch();
 
     const getDiscountPrice = (discount, price) => {
         return Math.floor(price * (1 - discount/100)).toFixed(0)
@@ -49,7 +45,7 @@ export const Perfume = ({perfume, onPerfumeLike, sendReview, onDeleteReview}) =>
         </div>
         <div className={s.productInfo}>
             <div className={s.imgWrapper}>
-                <img className={s.img} src={perfume.pictures}></img>
+                <img className={s.img} src={perfume.pictures} alt=''></img>
             </div>
             <div className={s.desc}>
                 <span className={`${s.price} ${!!perfume.discount ? s.oldPrice : ''}`}>{perfume.price}&nbsp;₽</span>

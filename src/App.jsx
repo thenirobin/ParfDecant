@@ -3,15 +3,12 @@ import { Header } from './components/Header/header';
 import { Footer } from './components/Footer/footer';
 import './index.css'
 import { useState, useEffect } from 'react';
-import { api } from "./utils/api";
 import { useDebounce } from "./hooks/hooks";
 import { CatalogPage } from './pages/CatalogPage/CatalogPage';
 import { PerfumePage } from './pages/PerfumePage/PerfumePage';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { FavoritePerfumes } from './pages/Favorites/FavoritePerfumes';
-import { CardContext } from './context/cardContext';
-import { filteredCards} from './utils/utils';
-// import { Form } from './components/Form/form';
+import { parseJwt } from './utils/utils';
 import { Modal } from './components/Modal/modal';
 import { LoginForm } from './components/Auth/Login/login';
 import { RegisterForm} from './components/Auth/Registrate/register';
@@ -22,39 +19,47 @@ import { getUser } from './storage/slices/userSlice';
 import { fetchPerfumes, searchPerfumeByQuery } from './storage/slices/perfumesSlice';
 
 function App() {
-  const [search, setSearch] = useState(undefined);
+  // const [search, setSearch] = useState(undefined);
   const [modalActive, setModalActive] = useState(false);
-  // const [auth, setAuth] = useState(true);
+  const [auth, setAuth] = useState(true);
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+  const {search} = useSelector(s => s.perfumes)
+
   const debounceValueInApp = useDebounce(search);
 
   useEffect(() => {
-    if (debounceValueInApp === undefined) return;
+    if (debounceValueInApp === null) return;
     dispatch(searchPerfumeByQuery(debounceValueInApp))
   }, [debounceValueInApp, dispatch])
 
   useEffect(() => {
+    if (!auth) {
+      return
+    };
     dispatch(getUser()).then(() => dispatch(fetchPerfumes()));
-  }, [dispatch]);
+  }, [dispatch, auth]);
 
-  const cardValue = {
-    search,
-    setModalActive
-  }
+  useEffect(() => {
+    const token = parseJwt(localStorage.getItem('token'));
+    if (token && (new Date() < new Date(token?.exp * 1e3))) {
+      setAuth(true);
+    } else {
+      setModalActive(true);
+      navigate('/login')
+    }
+  }, [navigate])
 
   return (
     <div className="App">
-      <CardContext.Provider value={cardValue}>
-        <Header setSearch={setSearch}></Header>
-        {/* <Form/> */}
+        <Header setModalActive={setModalActive} auth={auth}></Header>
         <main className="container content">
-        <Routes>
+        { auth ? <Routes>
           <Route path='/' element={<CatalogPage/>} />
           <Route path='/perfume/:id' element={<PerfumePage />} />
           <Route path='/favorites' element={<FavoritePerfumes />} />
-          <Route path='/profile' element={<ProfilePage />} />
+          <Route path='/profile' element={<ProfilePage setModalActive={setModalActive}/>} />
           <Route path='/registrate' element={
             <Modal modalActive={modalActive} setModalActive={setModalActive}>
             <RegisterForm />
@@ -71,10 +76,9 @@ function App() {
           </Modal>
           } />
           <Route path='*' element={<h1> 404 NOT FOUND</h1>} />
-        </Routes>
+        </Routes> : ''}
         </main>
         <Footer />
-      </CardContext.Provider>
     </div>
   );
 }

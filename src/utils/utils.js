@@ -1,5 +1,5 @@
 export const filteredCards = (cards) => {
-    return cards.filter(e => e.author._id  === '644660988fbc473fa89cbe9d')
+    return cards.filter(e => e.author._id  === '644660988fbc473fa89cbe9d');
 }
 
 export const findFav = (product, id) => {
@@ -26,6 +26,23 @@ export const perfumeRating = (reviews) => {
     const sum = reviews.reduce((acc, el)=>acc += el.rating, 0);
     return sum / reviews.length
 }
+
+export function parseJwt(token) {
+    if (!token) return null
+    let base64Url = token.split('.')[1];
+    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    let jsonPayload = decodeURIComponent(
+      window
+        .atob(base64)
+        .split('')
+        .map(function (c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join('')
+    );
+  
+    return JSON.parse(jsonPayload);
+  }
 
   // Сортировка с условиями
   // const onSort = (sortId) => {

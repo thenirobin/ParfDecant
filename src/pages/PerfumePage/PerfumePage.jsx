@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { api } from "../../utils/api";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchChangePerfumeFav } from "../../storage/slices/perfumesSlice";
+import { openNotification } from "../../components/Notification/notification";
 
 export const PerfumePage = () => {
     const [perfume, setPerfume] = useState({});
@@ -29,9 +30,15 @@ const onPerfumeLike = useCallback((item, wasLiked) => {
 },[user?._id])
 
 const sendReview = useCallback(async data => {
+    try {
         const result = await api.addPerfumeReview(perfume._id, data);
         setPerfume(() => ({...result}));
+        openNotification('success', 'Успешно!', 'Ваш отзыв опубликован.');
+    } catch (error) {
+        openNotification('error', 'Ошибка!', 'Ваш отзыв не удалось отправить.');
+    }
 }, [perfume._id])
+
 const onDeleteReview = useCallback(async (id) => {
     api.deletePerfumeReview(perfume._id, id)
         .then(data => setPerfume(() => ({...data})))

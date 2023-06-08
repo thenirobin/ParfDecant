@@ -3,12 +3,14 @@ import { api } from "../../utils/api"
 import { isError, isLoading } from "../utilStorage";
 import { filteredCards, findFav, perfumeRating } from "../../utils/utils";
 import { CHEAPEST, EXPENSIVE, NEWEST, POPULAR, RATE, SALE } from "../../constants/constants";
+import { openNotification } from "../../components/Notification/notification";
 
 const initialState = {
     perfumes: [],
     loading: false,
     total: 0,
-    favorites: []
+    favorites: [],
+    search: null
 }
 
 export const fetchPerfumes = createAsyncThunk('perfumes/fetchPerfumes', async (_, {fulfillWithValue, getState, rejectWithValue} ) => {
@@ -65,6 +67,9 @@ const perfumesSlice = createSlice({
                     break;
                 default: break;
             }
+        },
+        setSearch: (state, action) => {
+            state.search = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -89,6 +94,7 @@ const perfumesSlice = createSlice({
         builder.addMatcher(isError, (state, action) => {
             state.loading = false;
             state.error = action.payload;
+            openNotification('error', 'Ошибка!', action.payload.message)
         });
         builder.addMatcher(isLoading, (state) => {
             state.loading = true;
@@ -96,6 +102,6 @@ const perfumesSlice = createSlice({
     }
 })
 
-export const { sortedPerfumes } = perfumesSlice.actions;
+export const { sortedPerfumes, setSearch } = perfumesSlice.actions;
 
 export default perfumesSlice.reducer;

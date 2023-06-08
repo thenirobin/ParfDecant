@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
-import { CardList } from "../../components/cardList/cardList";
+import React from "react";
+import { CardList } from "../../components/CardList/cardList";
 import './index.css';
-import { CardContext } from "../../context/cardContext";
 import { CHEAPEST, EXPENSIVE, NEWEST, POPULAR, RATE, SALE } from "../../constants/constants";
 import { getEnding } from "../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,9 +15,8 @@ export const CatalogPage = () => {
             return 'найдено'
         }
     }
-    const {search} = useContext(CardContext);
 
-    const {perfumes} = useSelector(s => s.perfumes);
+    const {perfumes, search} = useSelector(s => s.perfumes);
 
     const dispatch = useDispatch();
 
