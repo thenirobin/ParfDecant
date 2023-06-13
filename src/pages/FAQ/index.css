@@ -1,0 +1,25 @@
+.faq__page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.QA__wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.question__style {
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    padding-bottom: 10px;
+    color: rgb(49, 49, 49);
+}
+
+.answer__style {
+    font-size: 16px;
+}

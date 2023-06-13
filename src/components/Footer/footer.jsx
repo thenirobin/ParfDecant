@@ -1,6 +1,7 @@
 import React from 'react'
 import "./index.css";
 import logoDF from '../Logo/logo.svg';
+import { Link } from 'react-router-dom';
 
 
 export const Footer = () => {
@@ -22,7 +23,9 @@ export const Footer = () => {
                 </div>
                 <div className='info__footer'>
                     <span>Оплата и доставка</span>
-                    <span>Ответы на вопросы</span>
+                    <Link to={'/faq'} className='faq__style'>
+                        <span>Ответы на вопросы</span>
+                    </Link>
                     <span>Обратная связь</span>
                     <span>Контакты</span>
                 </div>

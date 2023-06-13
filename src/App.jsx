@@ -17,6 +17,7 @@ import { useDispatch , useSelector} from 'react-redux';
 import { ProfilePage } from './pages/ProfilePage/Profile';
 import { getUser } from './storage/slices/userSlice';
 import { fetchPerfumes, searchPerfumesByQuery } from './storage/slices/perfumesSlice';
+import { FaqPage } from './pages/FAQ/faq';
 
 function App() {
   const [modalActive, setModalActive] = useState(false);
@@ -59,6 +60,7 @@ function App() {
           <Route path='/perfume/:id' element={<PerfumePage />} />
           <Route path='/favorites' element={<FavoritePerfumes />} />
           <Route path='/profile' element={<ProfilePage setModalActive={setModalActive}/>} />
+          <Route path='/faq' element={<FaqPage />} />
           <Route path='/registrate' element={
             <Modal modalActive={modalActive} setModalActive={setModalActive}>
             <RegisterForm />
