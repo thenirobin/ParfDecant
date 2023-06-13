@@ -16,7 +16,7 @@ import { ResetPassword } from './components/Auth/ResetPassword/resetPassword';
 import { useDispatch , useSelector} from 'react-redux';
 import { ProfilePage } from './pages/ProfilePage/Profile';
 import { getUser } from './storage/slices/userSlice';
-import { fetchPerfumes, searchPerfumeByQuery } from './storage/slices/perfumesSlice';
+import { fetchPerfumes, searchPerfumesByQuery } from './storage/slices/perfumesSlice';
 
 function App() {
   // const [search, setSearch] = useState(undefined);
@@ -31,7 +31,7 @@ function App() {
 
   useEffect(() => {
     if (debounceValueInApp === null) return;
-    dispatch(searchPerfumeByQuery(debounceValueInApp))
+    dispatch(searchPerfumesByQuery(debounceValueInApp))
   }, [debounceValueInApp, dispatch])
 
   useEffect(() => {

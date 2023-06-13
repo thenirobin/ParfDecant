@@ -38,7 +38,7 @@ export const Perfume = ({perfume, onPerfumeLike, sendReview, onDeleteReview}) =>
             <BackNavigate />
             <span className={s.perfumeTitle}>{perfume.name}</span>
             <div className={s.rating}>
-                <span>ItemNumber </span>
+                {/* <span>ItemNumber </span> */}
                 <Rating rating={perfumeRating(perfume.reviews)}/>
                 <span>{perfume.reviews.length} {getEnding(perfume.reviews.length, 'отзыв')}</span> 
             </div>

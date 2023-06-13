@@ -32,14 +32,14 @@ export const fetchChangePerfumeFav = createAsyncThunk('perfumes/fetchChangePerfu
     }
 });
 
-export const searchPerfumeByQuery = createAsyncThunk('perfumes/searchPerfumeByQuery', async function (search, {fulfillWithValue, rejectWithValue}) {
+export const searchPerfumesByQuery = createAsyncThunk("perfumes/searchPerfumesByQuery", async function (search, { fulfillWithValue, rejectWithValue }) {
     try {
-        const finded = api.searchPerfumes(search);
-        return fulfillWithValue(finded);
+        const result = await api.searchPerfumes(search);
+        return fulfillWithValue(result);
     } catch (error) {
         return rejectWithValue(error);
     }
-})
+});
 
 const perfumesSlice = createSlice({
     name: 'perfumes',
@@ -88,7 +88,7 @@ const perfumesSlice = createSlice({
                 state.favorites = [...state.favorites, updatedCard];
             }
         });
-        builder.addCase(searchPerfumeByQuery.fulfilled, (state, {payload}) => {
+        builder.addCase(searchPerfumesByQuery.fulfilled, (state, {payload}) => {
             state.perfumes = filteredCards(payload);
         });
         builder.addMatcher(isError, (state, action) => {

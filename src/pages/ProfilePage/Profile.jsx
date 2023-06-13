@@ -31,7 +31,7 @@ export const ProfilePage = ({setModalActive}) => {
         <> 
         {!user?._id ? 'not auth' : <div className="profile">
             <div>
-                <form className="form__style" onSubmit={handleSubmit(sendData)}>
+                <form className="profile__form" onSubmit={handleSubmit(sendData)}>
                     <div>
                         <input className="form__input" type="text" {...register("name")} placeholder="Имя" defaultValue={user.name}/>
                     </div>
@@ -39,16 +39,16 @@ export const ProfilePage = ({setModalActive}) => {
                         <input className="form__input" type="text" {...register("about")} placeholder="Обо мне" defaultValue={user.about}/>
                     </div>
                     <button className="profile__button" type="submit">Отправить</button>
+                    <button className="profile__button" onClick={logout}>Выйти</button>
                 </form>
             </div>
             <div>
-                <form className="form__style" onSubmit={handleSubmit(sendData)}>
+                <form className="profile__form" onSubmit={handleSubmit(sendData)}>
                     <img src={user?.avatar} className="profile__avatar" alt="" />
                     <div>
                         <input className="form__input" type="text" {...register("avatar")} placeholder="Ссылка для нового аватара"/>
                     </div>
                     <button className="profile__button" type="submit">Отправить</button>
-                    <button className="profile__button" onClick={logout}>Выйти</button>
                 </form>
             </div>
             <div>

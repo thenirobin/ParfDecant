@@ -8,6 +8,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { ReactComponent as Basket} from './img/basket.svg'
 import { ReactComponent as Profile} from './img/profile.svg'
 import { ReactComponent as Heart} from './img/favorites.svg'
+import { ReactComponent as User} from './img/user.svg'
 import { useSelector } from 'react-redux';
 
 
@@ -34,7 +35,7 @@ export const Header = ({setModalActive, auth}) => {
                     <Basket />
                     { auth ? 
                     <Link to={'/profile'} >
-                    Profile
+                        <User />
                     </Link>
                     :<Link to={'/login'} onClick={() => setModalActive(true)}>
                     <Profile/>
