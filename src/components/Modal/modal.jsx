@@ -13,8 +13,6 @@ export const Modal = ({setModalActive, modalActive, children}) => {
 
     useEffect(() => {
         document.addEventListener('keydown', closeOnEsc);
-
-        // return () => document.removeEventListener('keydown', closeOnEsc);
     }, [closeOnEsc])
 
     return (

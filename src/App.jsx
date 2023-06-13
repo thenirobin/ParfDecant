@@ -19,7 +19,6 @@ import { getUser } from './storage/slices/userSlice';
 import { fetchPerfumes, searchPerfumesByQuery } from './storage/slices/perfumesSlice';
 
 function App() {
-  // const [search, setSearch] = useState(undefined);
   const [modalActive, setModalActive] = useState(false);
   const [auth, setAuth] = useState(true);
 
@@ -47,9 +46,9 @@ function App() {
       setAuth(true);
     } else {
       setModalActive(true);
-      navigate('/login')
+      navigate('/login');
     }
-  }, [navigate])
+  }, [])
 
   return (
     <div className="App">

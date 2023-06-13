@@ -41,7 +41,6 @@ export const LoginForm = () => {
                 <Link className="auth__link" to={'/registrate'}>Регистрация</Link>
                 <Link className="auth__link" to={'/reset-password'}>Забыли пароль?</Link>
             </div>
-                {/* <label htmlFor="tags">Введите теги через запятую / слеш / пробел</label> */}
                 <button className="button__auth" type="submit">Войти</button>
         </form>
     </div>

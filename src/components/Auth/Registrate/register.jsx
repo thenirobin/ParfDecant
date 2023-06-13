@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { api } from "../../../utils/api";
 import '../index.css'
+import { openNotification } from "../../Notification/notification";
 
-export const emailRegister = { required: 'Почта обязательна!' }
+export const emailRegister = { required: 'Почта обязательна!' };
 export const passwordRegister = {
     required: {
         value: true,
@@ -14,7 +15,7 @@ export const passwordRegister = {
         value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
         message: 'Пароль должен содержать минимум 8 символов, одну большую букву латинского алфавита и одну цифру'
     }
-}
+};
 
 export const RegisterForm = () => {
     
@@ -25,11 +26,11 @@ export const RegisterForm = () => {
     const sendData = async (data) => {
         try {
             await api.signUp(data);
+            openNotification('success', 'Успешно!', 'Вы зарегистрировались!.');
         } catch (error) {
             alert('Ooooops')
         }
     }
-
     return (
     <div>
         <h3>Регистрация</h3>
@@ -48,10 +49,9 @@ export const RegisterForm = () => {
                 {errors?.password && <span> {errors?.password.message}</span>}
             </div>
             <div>
-                <Link  to={'/login'}>Уже есть аккаунт? Войти</Link>
+                <Link to={'/login'}>Уже есть аккаунт? Войти</Link>
             </div>
-                {/* <label htmlFor="tags">Введите теги через запятую / слеш / пробел</label> */}
-                <button type="submit"> Зарегистрироваться</button>
+                <button className='button__auth' type="submit">Зарегистрироваться</button>
         </form>
     </div>
     )
