@@ -166,6 +166,12 @@
   border: none;
   border-radius: 20px;
   cursor: pointer;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 20px;
+	text-decoration: none;
+	display: inline-block;
+	transition: background-color .3s;
 }
 .button__cart:hover {
   background-color: #a7a1ff;

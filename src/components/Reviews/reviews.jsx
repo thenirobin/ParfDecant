@@ -39,7 +39,7 @@ export const Reviews = ({ onSendReview, reviews, onDeleteReview }) => {
             <form className={s.reviews__form} onSubmit={handleSubmit(onSendFormReview)}>
                 <Rating rating={rate} setRate={setRate} isEditable={true}/>
                 <textarea {...register("text", { ...reviewRegister })} type='text' placeholder='Напишите свой отзыв'  className='form__review'/>
-                <button type='submit' className={s.button__review}>Send</button>
+                <button type='submit' className={s.button__review}>Опубликовать</button>
             </form>}
             <div className={s.reviews__list}>
                 <div className={s.reviews__hr} />
