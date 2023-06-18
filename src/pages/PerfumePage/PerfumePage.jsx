@@ -27,7 +27,7 @@ const onPerfumeLike = useCallback((item, wasLiked) => {
         const addLikes = [...item.likes, user?._id];
         setPerfume((s) => ({...s, likes: addLikes}));
     }
-},[user?._id])
+},[user?._id, dispatch])
 
 const sendReview = useCallback(async data => {
     try {

@@ -34,12 +34,12 @@ export const Rating = ({ rating, setRate = () => { }, isEditable = false }) => {
             />
         )
         setRatingArr(updatedArray);
-    }, [rating, isEditable]);
+    }, [rating, isEditable, changeDisplay, changeRating, ratingArr]);
 
 
     useEffect(() => {
         constructRating(rating)
-    }, [constructRating])
+    }, [constructRating, rating])
 
     return (<div>
         {ratingArr.map((e, i) => (

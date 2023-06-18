@@ -49,7 +49,7 @@ function App() {
       setModalActive(true);
       navigate('/login');
     }
-  }, [])
+  }, [navigate])
 
   return (
     <div className="App">

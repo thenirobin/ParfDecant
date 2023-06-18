@@ -1,10 +1,11 @@
 import React from "react";
-import { CardList } from "../../components/CardList/cardList";
+
 import './index.css';
 import { CHEAPEST, EXPENSIVE, NEWEST, POPULAR, RATE, SALE } from "../../constants/constants";
 import { getEnding } from "../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { sortedPerfumes } from "../../storage/slices/perfumesSlice";
+import { CardList } from "../../components/CardList/cardList";
 
 
 export const CatalogPage = () => {
