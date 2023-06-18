@@ -18,6 +18,7 @@ import { ProfilePage } from './pages/ProfilePage/Profile';
 import { getUser } from './storage/slices/userSlice';
 import { fetchPerfumes, searchPerfumesByQuery } from './storage/slices/perfumesSlice';
 import { FaqPage } from './pages/FAQ/faq';
+import { openNotification } from './components/Notification/notification';
 
 function App() {
   const [modalActive, setModalActive] = useState(false);
@@ -48,6 +49,7 @@ function App() {
     } else {
       setModalActive(true);
       navigate('/login');
+      openNotification('error', 'Авторизуйтесь в системе', 'Вы не авторизованы, чтобы пользоваться услугами нашего магазина');
     }
   }, [navigate])
 

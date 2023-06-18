@@ -26,7 +26,7 @@ export const RegisterForm = () => {
     const sendData = async (data) => {
         try {
             await api.signUp(data);
-            openNotification('success', 'Успешно!', 'Вы зарегистрировались!.');
+            openNotification('success', 'Успешно!', 'Вы зарегистрировались!');
         } catch (error) {
             alert('Ooooops')
         }

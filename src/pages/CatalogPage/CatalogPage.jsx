@@ -5,7 +5,7 @@ import { CHEAPEST, EXPENSIVE, NEWEST, POPULAR, RATE, SALE } from "../../constant
 import { getEnding } from "../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { sortedPerfumes } from "../../storage/slices/perfumesSlice";
-import { CardList } from "../../components/сardList/cardList";
+import { CardList } from "../../components/CardList/cardList";
 
 
 export const CatalogPage = () => {
