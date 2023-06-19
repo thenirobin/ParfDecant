@@ -51,7 +51,7 @@ function App() {
       navigate('/login');
       openNotification('error', 'Авторизуйтесь в системе', 'Вы не авторизованы, чтобы пользоваться услугами нашего магазина');
     }
-  }, [navigate])
+  }, [])
 
   return (
     <div className="App">

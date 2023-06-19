@@ -78,10 +78,6 @@ export const Perfume = ({perfume, onPerfumeLike, sendReview, onDeleteReview}) =>
             <span className={s.price}>Описание</span>
             <p className={s.description}>{perfume.description}</p>
         </div>
-        <div className={s.desc}>
-            <span className={s.price}>Характеристики</span>
-            <p className={s.description}></p>
-        </div>
         <Reviews onDeleteReview={onDeleteReview} onSendReview={onSendReview} reviews={perfume.reviews} />
     </div>
     )
