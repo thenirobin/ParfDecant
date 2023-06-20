@@ -94,7 +94,7 @@ const perfumesSlice = createSlice({
         builder.addMatcher(isError, (state, action) => {
             state.loading = false;
             state.error = action.payload;
-            openNotification('error', 'Ошибка!', action.payload.message)
+            // openNotification('error', 'Ошибка!', action.payload.message)
         });
         builder.addMatcher(isLoading, (state) => {
             state.loading = true;

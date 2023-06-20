@@ -34,7 +34,7 @@ export const Rating = ({ rating, setRate = () => { }, isEditable = false }) => {
             />
         )
         setRatingArr(updatedArray);
-    }, [rating, isEditable, changeDisplay, changeRating, ratingArr]);
+    }, [rating, isEditable]);
 
 
     useEffect(() => {
