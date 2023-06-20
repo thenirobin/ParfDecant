@@ -29,9 +29,6 @@ const userSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        // builder.addCase(getUser.pending, (state, action) => {
-        //     state.loading = true;
-        // });
         builder.addCase(getUser.fulfilled, (state, action) => {
             state.loading = false;
             state.data = action.payload;

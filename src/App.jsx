@@ -55,7 +55,7 @@ function App() {
 
   return (
     <div className="App">
-        <Header setModalActive={setModalActive} auth={auth}></Header>
+        <Header setModalActive={setModalActive} ></Header>
         <main className="container content">
         { auth ? <Routes>
           <Route path='/' element={<CatalogPage/>} />

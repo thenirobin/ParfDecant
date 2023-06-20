@@ -12,7 +12,7 @@ import { ReactComponent as User} from './img/user.svg'
 import { useSelector } from 'react-redux';
 
 
-export const Header = ({setModalActive, auth}) => {
+export const Header = ({setModalActive}) => {
 
     const location = useLocation();
     const {favorites} = useSelector(s => s.perfumes)
@@ -33,14 +33,12 @@ export const Header = ({setModalActive, auth}) => {
                         {!!favorites.length && <span className='header__bubble'>{favorites.length}</span>}
                     </Link>
                     <Basket />
-                    { auth ? 
                     <Link to={'/profile'} >
                         <User />
                     </Link>
-                    :<Link to={'/login'} onClick={() => setModalActive(true)}>
-                    <Profile/>
+                    <Link to={'/login'} onClick={() => setModalActive(true)}>
+                        <Profile />
                     </Link>
-                    }
                 </div>
             </div>
         </div>
