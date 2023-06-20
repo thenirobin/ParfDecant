@@ -5,7 +5,7 @@ import './style.css'
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-export const ProfilePage = ({setModalActive}) => {
+export const ProfilePage = ({setModalActive, modalActive}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {data: user} = useSelector(s => s.user);
@@ -29,7 +29,11 @@ export const ProfilePage = ({setModalActive}) => {
 
     return ( 
         <> 
-        {!user?._id ? 'not auth' : <div className="profile">
+        {!user?._id ? 
+            <div> 
+                Вы не вошли в систему. Выполните вход или зарегистрируйтесь.
+            </div>
+        : <div className="profile">
             <div>
                 <form className="profile__form" onSubmit={handleSubmit(sendData)}>
                     <div>

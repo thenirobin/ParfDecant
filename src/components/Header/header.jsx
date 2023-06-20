@@ -33,7 +33,7 @@ export const Header = ({setModalActive}) => {
                         {!!favorites.length && <span className='header__bubble'>{favorites.length}</span>}
                     </Link>
                     <Basket />
-                    <Link to={'/profile'} >
+                    <Link to={'/profile'}>
                         <User />
                     </Link>
                     <Link to={'/login'} onClick={() => setModalActive(true)}>
